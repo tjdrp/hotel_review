@@ -1,6 +1,6 @@
 # 1. Review Analysis Report
 
-## Overview
+## 1. Overview
 - This project utilizes Selenium to scrape reviews for various accommodation types (motels, hotels, guesthouses, pensions/villas) and stores the reviews in text files. The stored reviews are then analyzed for the frequency of nouns and verbs, and the results are presented.
 
 ## 2. Review Scraping and Storage
