@@ -1,55 +1,47 @@
-# 1. 리뷰 분석 보고서
+# 1. Review Analysis Report
 
-## 개요
-- Selenium을 활용하여 여러 숙소들(모텔,호텔,게스트하우스, 펜션/풀빌라) 리뷰를 스크랩하고, 이를 텍스트 파일에 저장한 후, 저장된 리뷰를 분석하여 명사와 동사의 빈도수를 조사한 결과를 제시합니다.
+## Overview
+- This project utilizes Selenium to scrape reviews for various accommodation types (motels, hotels, guesthouses, pensions/villas) and stores the reviews in text files. The stored reviews are then analyzed for the frequency of nouns and verbs, and the results are presented.
 
-## 2. 리뷰 스크랩 및 저장
+## 2. Review Scraping and Storage
+- Reviews are scraped using the `{AccommodationType}ReviewScraper` class, which uses Selenium to gather up to 100 reviews for each accommodation type (motels, hotels, guesthouses, pensions/villas).
+- The scraped reviews are saved in text files, with the path being 'scrap_data/{AccommodationName}/reviews.txt'.
 
-- 리뷰를 스크랩하는 과정은 {숙소종류}ReviewScraper 클래스를 활용하였습니다. 이를 통해 Selenium을 사용하여 여러 숙소들(모텔,호텔,게스트하우스, 펜션/풀빌라)의 리뷰를 최대 100개씩 스크랩하였습니다.
-- 스크랩한 리뷰는 각 숙소별로 텍스트 파일에 저장되었으며, 저장된 리뷰 파일의 경로는 'scrap_data/{숙소 이름}/reviews.txt'입니다.
+## 3. Frequency Analysis of Nouns and Verbs
+- To analyze the frequency of nouns and verbs in the scraped reviews, the Konlpy library is used. This allows for the extraction of nouns and verbs from Korean text, and the Counter module is used to calculate the frequency of each word.
+- The results of the analysis are stored in a text file at 'scrap_data/{AccommodationNames}/nouns_and_verbs.txt'.
 
-## 3. 명사와 동사 빈도수 분석
+## 4. Frequency Plots and Word Clouds
+- Frequency plots and word clouds are generated for nouns and verbs for each accommodation type. The frequency data is used to create plots and word clouds for each accommodation.
+- The generated image files are saved in 'scrap_data/{AccommodationName}/nouns' and 'scrap_data/{AccommodationName}/verbs'.
 
-- 스크랩한 리뷰 텍스트에서 명사와 동사의 빈도수를 분석하기 위해 Konlpy를 활용하였습니다. 이를 통해 한글 텍스트에서 명사와 동사를 추출하고, Counter를 사용하여 각 단어의 빈도수를 계산하였습니다.
-- 분석 결과는 텍스트 파일에 저장되어 'scrap_data/{숙소들 이름}/nouns_and_verbs.txt'에 기록되었습니다.
+## 5. Conclusion
+- The analysis reveals the most frequently mentioned nouns and verbs in reviews for different accommodation types (motels, hotels, guesthouses, pensions/villas).
+- These insights provide a deeper understanding of the features and services of each accommodation type and will help in analyzing customer satisfaction and demands.
 
-## 4. 단어 빈도수 플롯 및 워드클라우드 생성
+# 2. Vectorization Report
 
-- 여러 숙소별로 명사와 동사에 대한 단어 빈도수 플롯과 워드클라우드를 생성하였습니다. 이를 위해 빈도수 정보를 이용하여 각 숙소들의 명사와 동사에 대한 플롯과 워드클라우드가 생성되었습니다.
-- 생성된 이미지 파일은 'scrap_data/{숙소 이름}/nouns' 및 'scrap_data/{숙소 이름}/verbs'에 저장되었습니다.
+## 1. Overview
+- To apply machine learning and deep learning, the collected review data was processed using countVectorization. The original reviews were cleaned and vectorized using nouns, and the code for this process differs from other methods due to the additional preprocessing steps.
 
-## 5. 결론
+## 2. Data Collection
+- The text data for analysis is stored in the "{AccommodationType}_review.txt" file. Reviews are read from this file and used for analysis.
 
-- 본 분석을 통해 각 숙소의 종류별(모텔,호텔,게스트하우스, 펜션/풀빌라) 리뷰에서 자주 등장하는 명사와 동사를 확인할 수 있었습니다.
-- 이는 해당 숙소 종류(모텔,호텔,게스트하우스, 펜션/풀빌라)의 특징과 서비스에 대한 인사이트를 제공할 수 있으며, 향후 리뷰 분석을 통해 고객의 요구와 만족도를 더욱 심층적으로 파악할 수 있을 것으로 기대됩니다.
+## 3. Data Preprocessing
+1. Non-Korean characters are removed from the review data.
+2. The reviews are split based on the phrase 'nth review.'.
+3. Stopwords are removed, and morphological analysis is performed on the split reviews.
 
-# 2. vectorize 보고서
+## 4. Morphological Analysis
+1. The Okt morphological analyzer from KoNLPy is used for POS tagging.
+2. Nouns and verbs are extracted, and their base forms are retrieved.
 
-## 1. 개요
-- 머신러닝, 딥러닝에 적용하기위해 정제된 데이터를 countVectorize를 해주었다. 원상태의 리뷰를 가져와 모든 명사 형태소들을 이용해 vectorize하기위해 위와 다른 정제과정을 거쳤기에 다른 방법으로 코드를 작성하였다.
+## 5. Stopword Removal
+- Stopwords are loaded from a text file, which is used to filter out unnecessary words from the reviews during analysis.
 
-## 2. 데이터 수집
-- 분석 대상인 텍스트 데이터는 "{숙소종류}_review.txt" 파일에 저장되어 있습니다. 이 파일에서 리뷰 데이터를 읽어와 분석에 활용합니다.
+## 6. Results
+- The result of this process is a cleaned set of review data, ready for analysis.
 
-## 3. 데이터 전처리
-1. 리뷰 데이터에서 한글 이외의 문자를 제거합니다.
-2.  리뷰를 'n번째 리뷰.'를 기준으로 분할합니다.
-3.  분할된 리뷰에서 불용어를 제거하고 형태소 분석을 수행합니다.
-
-## 4. 형태소 분석
-1.  KoNLPy의 Okt 형태소 분석기를 활용하여 품사 태깅을 수행합니다.
-2.  명사와 동사를 추출하여 단어 원형을 추출합니다.
-
-## 5. 불용어 제거
-- 불용어 목록을 텍스트 파일로 저장 후 불러오는 것으로 활용하여 분석에 불필요한 단어를 제거합니다.
-
-## 6. 결과
-- 위 과정을 거친 결과물은 정제된 리뷰 데이터로, 분석에 활용될 수 있습니다.
-
-## 7. 문서-단어 행렬 (DTM) 생성
-- CountVectorizer를 사용하여 문서-단어 행렬(DTM)을 생성하였습니다.
-- DTM은 각 문서에서 단어의 출현 빈도를 나타내며, 분석에 활용될 수 있습니다.
-
-## 8. 분석용 DTM
-- DTM은 각 문서에서 단어의 출현 빈도를 행렬로 나타낸 것입니다.
-- 분석을 위한 DTM은 train_dtm 변수에 저장되어 있으며, 이를 통해 다양한 텍스트 분석 기법을 적용할 수 있습니다.
+## 7. Document-Term Matrix (DTM) Creation
+- A document-term matrix (DTM) is created using CountVectorizer.
+- DTM represents the frequency of words in each document and can be used for further analysis.
